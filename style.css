@@ -6,9 +6,27 @@
   margin: 0;
   padding: 0;
 }
+html, body {
+  height: auto; /* Ensure height adapts to the page content */
+  min-height: 100%; /* Ensures the background covers the full page height */
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  background-size: cover; /* Ensures the background covers the full body */
+  background-attachment: fixed; /* Makes sure the gradient stays in place even when scrolling */
+  background-repeat: no-repeat; /* Prevents the gradient from repeating */
+  min-height: 100vh; /* Ensures gradient covers at least the full viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Ensure that the main content takes up remaining space */
+main {
+  flex: 1;
 }
 
 html {
@@ -199,6 +217,20 @@ section {
   text-align: center;
 }
 
+.about-containers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Aligns the projects evenly */
+  gap: 5rem;
+}
+
+.details-container {
+  flex: 0 1 calc(33.333% - 2rem); /* Each project will take exactly one-third of the row */
+  margin: 2rem;
+  box-sizing: border-box;
+}
+
+
 #socials-container {
   display: flex;
   justify-content: center;
@@ -380,6 +412,98 @@ article .icon {
   border-color: rgb(163, 163, 163);
 }
 
+.gif-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden; /* Ensures content is clipped to the border */
+}
+
+.project-img {
+  border-radius: 2rem; /* Apply the same border radius to the GIF */
+  width: 100%; /* Ensure the GIF fills the container */
+  height: 100%; /* Ensure height consistency */
+}
+.project-details {
+  display: none; /* Hidden initially */
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7); /* Background overlay */
+  color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center; /* Center the text vertically */
+  align-items: center; /* Center the text horizontally */
+  text-align: center;
+  z-index: 1;
+  padding: 2rem;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease-in-out; /* Smooth transition */
+  opacity: 0;
+  border-radius: 2rem;
+  overflow: hidden; /* Ensure text doesn't overflow the container */
+}
+
+.project-details h3.details-header {
+  font-size: 3rem; /* Default font size */
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.project-details p.details-description {
+  font-size: 1.5rem; /* Default size for larger screens */
+  line-height: 1.5;
+  color: rgb(173, 173, 173);
+  padding: 1rem;
+}
+/* Show the project details when hovering over the GIF */
+.gif-container:hover .project-details {
+  display: flex;
+  opacity: 1; /* Make it visible with a fade-in effect */
+}
+
+.details-header {
+  font-size: 3rem; /* Larger font for header */
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 2rem;
+}
+
+.details-description {
+  font-size: 1.5rem; /* Smaller font for the details text */
+  line-height: 1.5;
+  color: rgb(173, 173, 173);
+}
+
+/* Consistent sizing and no extra spacing */
+.about-containers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.details-container {
+  position: relative;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  flex: 1 1 calc(33.333% - 2rem);
+  margin: 0;
+  background: white;
+  border-radius: 2rem;
+  border: rgb(53, 53, 53) 0.1rem solid;
+  border-color: rgb(163, 163, 163);
+  text-align: center;
+  overflow: hidden;
+  min-width: 300px;
+  cursor: default;
+}
+
+
 /* CONTACT */
 
 #contact {
@@ -395,7 +519,7 @@ article .icon {
   border-radius: 2rem;
   border: rgb(53, 53, 53) 0.1rem solid;
   border-color: rgb(163, 163, 163);
-  background: (250, 250, 250);
+  background-color: (250, 250, 250);
   margin: 2rem auto;
   padding: 0.5rem;
 }

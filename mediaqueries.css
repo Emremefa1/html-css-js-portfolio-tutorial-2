@@ -10,6 +10,14 @@
   #projects {
     height: fit-content;
   }
+  /* Adjust project details text */
+  .project-details h3.details-header {
+    font-size: 2.5rem; /* Slightly smaller header */
+  }
+  .project-details p.details-description {
+    font-size: 1.25rem; /* Adjust description size */
+    padding: 1rem; /* Maintain padding */
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -44,6 +52,26 @@
   }
   .about-containers {
     margin-top: 0;
+  }
+
+  /* Adjust project details text */
+  .project-details h3.details-header {
+    font-size: 2rem; /* Smaller header */
+  }
+  .project-details p.details-description {
+    font-size: 1.1rem; /* Reduce description size */
+    padding: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  /* Smaller devices adjustments */
+  .project-details h3.details-header {
+    font-size: 1.75rem; /* Even smaller header for tablets */
+  }
+  .project-details p.details-description {
+    font-size: 1rem; /* Adjust description text */
+    padding: 0.7rem;
   }
 }
 
@@ -99,5 +127,14 @@
   }
   .text-container {
     text-align: justify;
+  }
+
+  /* Smallest screens adjustments */
+  .project-details h3.details-header {
+    font-size: 1.5rem; /* Small header for mobile */
+  }
+  .project-details p.details-description {
+    font-size: 0.9rem; /* Smaller description text */
+    padding: 0.5rem; /* Adjust padding */
   }
 }
