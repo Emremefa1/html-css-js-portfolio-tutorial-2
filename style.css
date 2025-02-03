@@ -23,7 +23,6 @@ body {
   flex-direction: column;
 }
 
-
 /* Ensure that the main content takes up remaining space */
 main {
   flex: 1;
@@ -217,19 +216,21 @@ section {
   text-align: center;
 }
 
+/* ABOUT-CONTAINERS (Projects Container) */
+/* Changed justify-content from space-between to flex-start to keep items side by side */
 .about-containers {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Aligns the projects evenly */
+  justify-content: flex-start;
   gap: 5rem;
 }
 
 .details-container {
-  flex: 0 1 calc(33.333% - 2rem); /* Each project will take exactly one-third of the row */
+  /* This rule is overridden later */
+  flex: 0 1 calc(33.333% - 2rem);
   margin: 2rem;
   box-sizing: border-box;
 }
-
 
 #socials-container {
   display: flex;
@@ -300,9 +301,12 @@ section {
 }
 
 .about-containers {
+  /* Second occurrence: changed justify-content to flex-start */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 2rem;
   margin-bottom: 2rem;
-  margin-top: 2rem;
 }
 
 .about-details-container {
@@ -325,25 +329,74 @@ section {
   bottom: 2.5rem;
 }
 
+/* Updated PROJECTS TAB (DETAILS-CONTAINER) */
+/* This is the definition that affects your project cards */
 .details-container {
+  position: relative;
+  box-sizing: border-box;
   padding: 1.5rem;
-  flex: 1;
+  /* Prevents the cards from growing in the last row */
+  flex: 0 0 calc(33.333% - 2rem);
+  margin: 0;
   background: white;
   border-radius: 2rem;
   border: rgb(53, 53, 53) 0.1rem solid;
   border-color: rgb(163, 163, 163);
   text-align: center;
+  overflow: hidden;
+  min-width: 300px;
+  cursor: default;
 }
 
-.section-container {
-  gap: 4rem;
-  height: 80%;
+/* CONTACT */
+
+#contact {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
 }
 
-.section__pic-container {
-  height: 400px;
-  width: 400px;
-  margin: auto 0;
+.contact-info-upper-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+  border: rgb(53, 53, 53) 0.1rem solid;
+  border-color: rgb(163, 163, 163);
+  background-color: (250, 250, 250);
+  margin: 2rem auto;
+  padding: 0.5rem;
+}
+
+.contact-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem;
+}
+
+.contact-info-container p {
+  font-size: larger;
+}
+
+.contact-icon {
+  cursor: default;
+}
+
+.email-icon {
+  height: 2.5rem;
+}
+
+/* FOOTER SECTION */
+
+footer {
+  height: 26vh;
+  margin: 0 1rem;
+}
+
+footer p {
+  text-align: center;
 }
 
 /* EXPERIENCE SECTION */
@@ -424,6 +477,7 @@ article .icon {
   width: 100%; /* Ensure the GIF fills the container */
   height: 100%; /* Ensure height consistency */
 }
+
 .project-details {
   display: none; /* Hidden initially */
   position: absolute;
@@ -459,6 +513,7 @@ article .icon {
   color: rgb(173, 173, 173);
   padding: 1rem;
 }
+
 /* Show the project details when hovering over the GIF */
 .gif-container:hover .project-details {
   display: flex;
@@ -482,75 +537,7 @@ article .icon {
 .about-containers {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 2rem;
   margin-bottom: 2rem;
-}
-
-.details-container {
-  position: relative;
-  box-sizing: border-box;
-  padding: 1.5rem;
-  flex: 1 1 calc(33.333% - 2rem);
-  margin: 0;
-  background: white;
-  border-radius: 2rem;
-  border: rgb(53, 53, 53) 0.1rem solid;
-  border-color: rgb(163, 163, 163);
-  text-align: center;
-  overflow: hidden;
-  min-width: 300px;
-  cursor: default;
-}
-
-
-/* CONTACT */
-
-#contact {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 70vh;
-}
-
-.contact-info-upper-container {
-  display: flex;
-  justify-content: center;
-  border-radius: 2rem;
-  border: rgb(53, 53, 53) 0.1rem solid;
-  border-color: rgb(163, 163, 163);
-  background-color: (250, 250, 250);
-  margin: 2rem auto;
-  padding: 0.5rem;
-}
-
-.contact-info-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: 1rem;
-}
-
-.contact-info-container p {
-  font-size: larger;
-}
-
-.contact-icon {
-  cursor: default;
-}
-
-.email-icon {
-  height: 2.5rem;
-}
-
-/* FOOTER SECTION */
-
-footer {
-  height: 26vh;
-  margin: 0 1rem;
-}
-
-footer p {
-  text-align: center;
 }
