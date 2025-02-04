@@ -9,281 +9,241 @@
     <link rel="stylesheet" href="mediaqueries.css" />
   </head>
   <body>
+    <!-- Navigation (Desktop nav used for all devices) -->
     <nav id="desktop-nav">
       <div class="logo">Emre Çelikler</div>
-      <div>
-        <ul class="nav-links">
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
-    <nav id="hamburger-nav">
-      <div class="logo">Emre Çelikler</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Profile Section -->
+      <section id="profile" class="fade-in">
+        <div class="section__pic-container">
+          <img src="./assets/PortFoliPP-Elipse.png" alt="Emre Çelikler profile picture" />
         </div>
-        <div class="menu-links">
-          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        <div class="section__text">
+          <p class="section__text__p1">Hello, I'm</p>
+          <h1 class="title">Emre Çelikler</h1>
+          <p class="section__text__p2">Game Developer</p>
+          <div class="btn-container">
+            <button class="btn btn-color-2" onclick="window.open('https://diabolical.studio', '_blank')">Diabolical Studio</button>
+            <button class="btn btn-color-1" onclick="location.href='#contact'">Contact Info</button>
+          </div>
+          <div id="socials-container">
+            <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon" onclick="window.open('https://www.linkedin.com/in/emre-%C3%A7elikler/', '_blank')" />
+            <img src="./assets/github.png" alt="My Github profile" class="icon" onclick="window.open('https://github.com/orgs/Diabolical-Studios/repositories', '_blank')" />
+          </div>
         </div>
-      </div>
-    </nav>
-    <section id="profile">
-      <div class="section__pic-container">
-        <img src="./assets/PortFoliPP-Elipse.png" alt="Emre Çelikler profile picture" />
-      </div>
-      <div class="section__text">
-        <p class="section__text__p1">Hello, I'm</p>
-        <h1 class="title">Emre Çelikler</h1>
-        <p class="section__text__p2">Game Developer</p>
-        <div class="btn-container">
-          <button
-            class="btn btn-color-2"
-            onclick="window.open('https://diabolical.studio', '_blank')"
-          >
-            Diabolical Studio
-          </button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">
-            Contact Info
-          </button>
-        </div>
-        <div id="socials-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="My LinkedIn profile"
-            class="icon"
-            onclick="window.open('https://www.linkedin.com/in/emre-%C3%A7elikler/', '_blank')"
-          />
-          <img
-            src="./assets/github.png"
-            alt="My Github profile"
-            class="icon"
-            onclick="window.open('https://github.com/orgs/Diabolical-Studios/repositories', '_blank')"
-          />
-        </div>
-      </div>
-    </section>
-    <section id="projects">
-      <p class="section__text__p1">Browse My Recent</p>
-      <h1 class="title">Projects</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <!-- New Project: ForgeKeepers -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/ForgeKeepersGif.gif" alt="ForgeKeepers project GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">ForgeKeepers</h3>
-                <p class="details-description">
-                  A brief description for ForgeKeepers. (Add more details here as needed.)
-                </p>
-              </div>
-            </div>
-            <h2 class="experience-sub-title project-title">ForgeKeepers</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('#', '_blank')">Related Link</button>
-            </div>
-          </div>
+      </section>
 
-          <!-- New Project: Count Guys -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/CountGuysGif.gif" alt="Count Guys project GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">Count Guys</h3>
-                <p class="details-description">
-                  A brief description for Count Guys. (Add more details here as needed.)
-                </p>
+      <!-- Projects Section -->
+      <section id="projects" class="fade-in">
+        <h1 class="title">Projects</h1>
+        <div class="experience-details-container">
+          <div class="about-containers">
+            <!-- Project Card: ForgeKeepers -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/ForgeKeepersGif.gif" alt="ForgeKeepers project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">ForgeKeepers</h3>
+                  <p class="details-description">
+                    A brief description for ForgeKeepers. (Add more details here as needed.)
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">ForgeKeepers</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('#', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">Count Guys</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('#', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 1: BozoBrawl -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/BozoBrawlGif.gif" alt="Project 7 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">BozoBrawl</h3>
-                <p class="details-description">
-                  A multiplayer part brawler game with ragdoll physics that uses SteamWorks, accepted into the BUG LAB TEKMER.
-                </p>
+            <!-- Project Card: Count Guys -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/CountGuysGif.gif" alt="Count Guys project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">Count Guys</h3>
+                  <p class="details-description">
+                    A brief description for Count Guys. (Add more details here as needed.)
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">Count Guys</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('#', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">BozoBrawl</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=Wio1kYE3fDI&t=74s&ab_channel=DiabolicalStudios', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 2: HotHell -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/HotHellGif.gif" alt="Project 2 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">HotHell</h3>
-                <p class="details-description">
-                  HotHell was developed for the BUG Fall Jam'23, the game features a smooth fps character and a wave-based enemy system.
-                </p>
+            <!-- Project Card: BozoBrawl -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/BozoBrawlGif.gif" alt="BozoBrawl project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">BozoBrawl</h3>
+                  <p class="details-description">
+                    A multiplayer brawler game with ragdoll physics and SteamWorks integration.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">BozoBrawl</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=Wio1kYE3fDI&t=74s&ab_channel=DiabolicalStudios', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">HotHell</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=70lDVjUTA78', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 3: P.O.T.A.T.O -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/PotatoGif.gif" alt="Project 3 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">P.O.T.A.T.O</h3>
-                <p class="details-description">
-                  The game that won the 1st place at MAUJAM’23. The game features an attachable and detachable equipment system, 3D swinging mechanic, dash abilities, and a magnet ability.
-                </p>
+            <!-- Project Card: HotHell -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/HotHellGif.gif" alt="HotHell project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">HotHell</h3>
+                  <p class="details-description">
+                    Developed for BUG Fall Jam'23 with smooth FPS mechanics and a wave-based enemy system.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">HotHell</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=70lDVjUTA78', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">P.O.T.A.T.O</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://blazitt.itch.io/potato', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 4: G.F.O.S 1992 -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/GfosGif.gif" alt="Project 4 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">G.F.O.S 1992</h3>
-                <p class="details-description">
-                  The game features a single-screen co-op with ragdoll characters, a task system, and minigames with unique mechanics for each of them.
-                </p>
+            <!-- Project Card: P.O.T.A.T.O -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/PotatoGif.gif" alt="P.O.T.A.T.O project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">P.O.T.A.T.O</h3>
+                  <p class="details-description">
+                    The game that won 1st place at MAUJAM’23 featuring innovative equipment mechanics.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">P.O.T.A.T.O</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://blazitt.itch.io/potato', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">G.F.O.S 1992</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://lalik.itch.io/gfos-1992', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 5: Intern:All Conflict -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/InternALLGif.gif" alt="Project 5 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">Intern:All Conflict</h3>
-                <p class="details-description">
-                  The game that earned an Honored Mention at Enhancer Hackathon, the game features an FPS character and looping task system with minigames.
-                </p>
+            <!-- Project Card: G.F.O.S 1992 -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/GfosGif.gif" alt="G.F.O.S 1992 project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">G.F.O.S 1992</h3>
+                  <p class="details-description">
+                    A single-screen co-op with ragdoll characters, a task system, and unique minigames.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">G.F.O.S 1992</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://lalik.itch.io/gfos-1992', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">Intern:All Conflict</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://blazitt.itch.io/intern-all-conflict', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 6: Force Push Clone -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/PushForcegif.gif" alt="Project 6 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">Force Push Clone</h3>
-                <p class="details-description">
-                  In this demo I tried to recreate the force push ability from the Star Wars saga. The demo features ragdoll enemies, a bomb, and the force push ability.
-                </p>
+            <!-- Project Card: Intern:All Conflict -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/InternALLGif.gif" alt="Intern:All Conflict project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">Intern:All Conflict</h3>
+                  <p class="details-description">
+                    An Honored Mention at Enhancer Hackathon featuring FPS mechanics and looping tasks.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">Intern:All Conflict</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://blazitt.itch.io/intern-all-conflict', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">Force Push Clone</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=rU6C8ebkP-I', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 7: Real Car Parking Clone -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/CarGameGif.gif" alt="Project 1 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">Real Car Parking Clone</h3>
-                <p class="details-description">
-                  This project is a simplified clone of Real Car Parking, focusing on core mechanics like vehicle control and parking challenges.
-                </p>
+            <!-- Project Card: Force Push Clone -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/PushForcegif.gif" alt="Force Push Clone project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">Force Push Clone</h3>
+                  <p class="details-description">
+                    A demo recreating the force push ability with ragdoll enemies and a bomb.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">Force Push Clone</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=rU6C8ebkP-I', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">Real Car Parking Clone</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=I_nJ1iZINAQ', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 8: Hole.io Clone -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/HoleIoGif.gif" alt="Project 8 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">Hole.io Clone</h3>
-                <p class="details-description">
-                  A demo inspired by the popular Hole.io game, focusing on absorbing objects in a competitive environment.
-                </p>
+            <!-- Project Card: Real Car Parking Clone -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/CarGameGif.gif" alt="Real Car Parking Clone project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">Real Car Parking Clone</h3>
+                  <p class="details-description">
+                    A simplified clone focusing on vehicle control and parking challenges.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">Real Car Parking Clone</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=I_nJ1iZINAQ', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">Hole.io Clone</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=zApYBhFU9ys', '_blank')">Related Link</button>
-            </div>
-          </div>
-
-          <!-- Existing Project 9: MegaMan Clone -->
-          <div class="details-container color-container">
-            <div class="article-container gif-container">
-              <img src="./assets/MegaManClonegif.gif" alt="Project 9 GIF" class="project-img" />
-              <div class="project-details">
-                <h3 class="details-header">MegaMan Clone</h3>
-                <p class="details-description">
-                  A clone of the classic MegaMan game, featuring platforming mechanics, shooting, and level progression.
-                </p>
+            <!-- Project Card: Hole.io Clone -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/HoleIoGif.gif" alt="Hole.io Clone project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">Hole.io Clone</h3>
+                  <p class="details-description">
+                    A demo inspired by Hole.io that focuses on absorbing objects in a competitive environment.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">Hole.io Clone</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=zApYBhFU9ys', '_blank')">Related Link</button>
               </div>
             </div>
-            <h2 class="experience-sub-title project-title">MegaMan Clone</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=6zrvjmHqiuQ', '_blank')">Related Link</button>
+            <!-- Project Card: MegaMan Clone -->
+            <div class="details-container">
+              <div class="article-container gif-container">
+                <img src="./assets/MegaManClonegif.gif" alt="MegaMan Clone project GIF" class="project-img" />
+                <div class="project-details">
+                  <h3 class="details-header">MegaMan Clone</h3>
+                  <p class="details-description">
+                    A clone of the classic MegaMan game featuring platforming, shooting, and level progression.
+                  </p>
+                </div>
+              </div>
+              <h2 class="experience-sub-title project-title">MegaMan Clone</h2>
+              <div class="btn-container">
+                <button class="btn btn-color-2 project-btn" onclick="window.open('https://www.youtube.com/watch?v=6zrvjmHqiuQ', '_blank')">Related Link</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section id="contact">
-      <p class="section__text__p1">Get in Touch</p>
-      <h1 class="title">Contact Me</h1>
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:emre@diabolical.studio">emre@diabolical.studio</a></p>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="fade-in">
+        <p class="section__text__p1">Get in Touch</p>
+        <h1 class="title">Contact Me</h1>
+        <div class="contact-info-upper-container">
+          <div class="contact-info-container">
+            <img src="./assets/email.png" alt="Email icon" class="icon contact-icon email-icon" />
+            <p><a href="mailto:emre@diabolical.studio">emre@diabolical.studio</a></p>
+          </div>
+          <div class="contact-info-container">
+            <img src="./assets/linkedin.png" alt="LinkedIn icon" class="icon contact-icon" />
+            <p><a href="https://www.linkedin.com/in/emre-%C3%A7elikler/" target="_blank">LinkedIn</a></p>
+          </div>
         </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com/in/emre-%C3%A7elikler/" target="_blank">LinkedIn</a></p>
-        </div>
-      </div>
-    </section>
-    <footer>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fade-in">
       <nav>
         <div class="nav-links-container">
           <ul class="nav-links">
@@ -292,8 +252,12 @@
           </ul>
         </div>
       </nav>
-      <p>Copyright &#169; 2023 Emre Çelikler. All Rights Reserved.</p>
+      <p>&copy; 2023 Emre Çelikler. All Rights Reserved.</p>
     </footer>
+
+    <!-- Scroll-to-Top Button -->
+    <button id="scrollToTop" title="Scroll to top">↑</button>
+
     <script src="script.js"></script>
   </body>
 </html>

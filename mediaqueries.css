@@ -1,3 +1,6 @@
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 1400px */
 @media screen and (max-width: 1400px) {
   #profile {
     height: 83vh;
@@ -20,13 +23,8 @@
   }
 }
 
+/* For screens smaller than 1200px */
 @media screen and (max-width: 1200px) {
-  #desktop-nav {
-    display: none;
-  }
-  #hamburger-nav {
-    display: flex;
-  }
   #experience,
   .experience-details-container {
     margin-top: 2rem;
@@ -53,7 +51,6 @@
   .about-containers {
     margin-top: 0;
   }
-
   /* Adjust project details text */
   .project-details h3.details-header {
     font-size: 2rem; /* Smaller header */
@@ -64,10 +61,10 @@
   }
 }
 
+/* For screens smaller than 900px */
 @media screen and (max-width: 900px) {
-  /* Smaller devices adjustments */
   .project-details h3.details-header {
-    font-size: 1.75rem; /* Even smaller header for tablets */
+    font-size: 1.75rem; /* Even smaller header */
   }
   .project-details p.details-description {
     font-size: 1rem; /* Adjust description text */
@@ -75,6 +72,7 @@
   }
 }
 
+/* For screens smaller than 600px */
 @media screen and (max-width: 600px) {
   #contact,
   footer {
@@ -128,13 +126,30 @@
   .text-container {
     text-align: justify;
   }
-
-  /* Smallest screens adjustments */
+  /* Center the project cards on mobile */
+  .about-containers {
+    justify-content: center;
+    justify-items: center;
+    margin: 0 auto;
+  }
+  /* Adjust project details text for mobile */
   .project-details h3.details-header {
     font-size: 1.5rem; /* Small header for mobile */
   }
   .project-details p.details-description {
     font-size: 0.9rem; /* Smaller description text */
     padding: 0.5rem; /* Adjust padding */
+  }
+}
+
+/* For screens smaller than 480px */
+@media screen and (max-width: 480px) {
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .contact-info-upper-container {
+    flex-direction: column;
   }
 }
