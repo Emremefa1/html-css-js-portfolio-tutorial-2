@@ -9,6 +9,11 @@
   --card-bg:         #2c2c2c;      /* Card background */
   --card-border:     #3d3d3d;      /* Card border */
   --nav-glow: rgba(187, 134, 252, 0.15);  /* Navigation glow color */
+  
+  /* Performance optimization variables */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.5s;
 }
 
 /* Reset & Base Styles */
@@ -33,6 +38,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  will-change: background-position;
 }
 
 @keyframes gradientBG {
@@ -58,8 +64,10 @@ nav {
   top: 0;
   z-index: 1000;
   box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  /* Replace backdrop-filter properties with a comment */
+  /* backdrop-filter is not fully supported in all browsers */
+  /* backdrop-filter: none; */
+  /* -webkit-backdrop-filter: none; */
   transition: all 0.3s ease;
   border-bottom: none;
 }
@@ -134,11 +142,12 @@ main {
   padding-top: 1rem; /* Reduce top padding since nav is gone */
 }
 
-/* Enhanced fade-in animations with staggered effect */
+/* Enhanced fade-in animations with staggered effect - optimized */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity var(--transition-medium) ease-out, transform var(--transition-medium) ease-out;
+  will-change: opacity, transform;
 }
 
 .fade-in.visible {
@@ -388,14 +397,16 @@ main {
   gap: 2rem;
 }
 
-/* Project Card - Enhanced Static Design */
+/* Project Card - Enhanced Static Design - optimized */
 .details-container {
   background: linear-gradient(160deg, rgba(36, 36, 46, 0.95), rgba(18, 18, 24, 0.98));
   border: 1px solid rgba(187, 134, 252, 0.2);
   border-radius: 0.8rem;
   overflow: hidden;
   text-align: center;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.3s ease;
+  transition: transform var(--transition-medium) cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow var(--transition-medium) ease, 
+              border-color var(--transition-medium) ease;
   cursor: pointer;
   position: relative;
   display: flex;
@@ -409,7 +420,7 @@ main {
   perspective: 1000px;
   z-index: 1;
   transform: translateY(0) scale(1);
-  will-change: transform;
+  will-change: transform, box-shadow;
 }
 
 /* Static top accent line */
@@ -431,22 +442,21 @@ main {
 .details-container:after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 0.8rem;
-  padding: 1px;
-  background: linear-gradient(
-    to bottom, 
-    rgba(187, 134, 252, 0.3), 
-    rgba(187, 134, 252, 0.1) 50%,
-    transparent
-  );
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Replace the entire webkit-mask approach with a standard border */
+  background: linear-gradient(45deg, 
+    rgba(187, 134, 252, 0.3) 0%, 
+    rgba(187, 134, 252, 0.1) 100%);
+  box-shadow: 
+    inset 0 0 0 1px rgba(187, 134, 252, 0.4),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+  opacity: 0;
   z-index: 1;
+  transform: scale(0.98);
+  transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
 }
 
@@ -505,7 +515,7 @@ main {
   overflow: hidden;
 }
 
-/* Improved loading state */
+/* Improved loading state for media elements */
 .gif-container::before {
   content: "Loading...";
   position: absolute;
@@ -521,7 +531,7 @@ main {
   font-size: 1.2rem;
   z-index: 3;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-fast) ease;
   font-weight: 600;
   letter-spacing: 1px;
   text-shadow: 0 0 8px var(--accent-color);
@@ -544,21 +554,44 @@ main {
 .gif-container.loaded::before {
   opacity: 0;
   z-index: -1;
+  animation: none;
 }
 
-.project-img {
+/* Enhanced styles for both images and videos */
+.project-img, 
+.gif-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+  transition: opacity var(--transition-medium) ease, 
+              transform var(--transition-slow) cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              filter var(--transition-fast) ease;
   display: block;
   filter: brightness(0.9) contrast(1.05) saturate(1.02);
+  will-change: transform, opacity, filter;
 }
 
-.project-img.loaded {
+.project-img.loaded,
+.gif-container video.loaded {
   opacity: 1;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.article-container:hover .project-img.loaded,
+.article-container:hover video.loaded {
+  transform: scale(1.12);
+  filter: brightness(1.05) contrast(1.1);
+}
+
+/* Video-specific optimizations */
+.gif-container video {
+  background-color: rgba(24, 24, 24, 0.9); /* Match container color for seamless loading */
+}
+
+/* Hide image inside video if video is loaded successfully */
+.gif-container video.loaded + img {
+  display: none;
 }
 
 /* Project Title - Enhanced Default State */
@@ -677,14 +710,16 @@ main {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  background: linear-gradient(135deg, rgba(44, 44, 44, 0.7), rgba(50, 40, 65, 0.7));
   padding: 2rem;
   border: 1px solid rgba(187, 134, 252, 0.3);
   border-radius: 1rem;
   margin: 1.5rem auto;
   max-width: 600px;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  /* Use only background color without backdrop-filter */
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.95), rgba(50, 40, 65, 0.95));
+  /* Remove backdrop filters completely to avoid browser warnings */
+  /* -webkit-backdrop-filter: blur(5px); */
+  /* backdrop-filter: blur(5px); */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(187, 134, 252, 0.2);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
@@ -953,8 +988,8 @@ footer .nav-links li a[href="#contact"] {
   display: none;
 }
 
-/* Also hide the list item that contains the contact link to avoid empty space */
-footer .nav-links li:has(a[href="#contact"]) {
+/* Add a utility class to hide empty list items in JavaScript instead */
+.empty-nav-item {
   display: none;
 }
 
@@ -970,10 +1005,6 @@ footer .nav-links {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, 
-               rgba(12, 12, 18, 0.85), 
-               rgba(36, 26, 55, 0.95));
-  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -981,10 +1012,14 @@ footer .nav-links {
   opacity: 0;
   transition: all 0.4s ease;
   padding: 1.5rem;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  /* Use only background color without backdrop-filter */
+  background: linear-gradient(135deg, rgba(12, 12, 18, 0.95), rgba(18, 12, 30, 0.95));
+  /* Remove backdrop filters completely to avoid browser warnings */
+  /* -webkit-backdrop-filter: blur(3px); */
+  /* backdrop-filter: blur(3px); */
   transform: translateY(10px);
   border: 1px solid rgba(187, 134, 252, 0.05);
+  color: #fff;
   z-index: 3;
 }
 
@@ -1039,23 +1074,27 @@ footer .nav-links {
   transform: translateY(0);
 }
 
-/* Add back image hover effects to work with our overlay */
-.project-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
-  display: block;
-  filter: brightness(0.9) contrast(1.05) saturate(1.02);
-}
-
-.project-img.loaded {
-  opacity: 1;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.article-container:hover .project-img.loaded {
-  transform: scale(1.12);
-  filter: brightness(1.05) contrast(1.1);
+/* Throttled animations for better performance */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    transition: opacity 0.1s ease-out;
+    transform: none;
+  }
+  
+  .details-container:hover {
+    transform: translateY(-3px) scale(1.01) !important;
+  }
+  
+  .article-container:hover .project-img.loaded,
+  .article-container:hover video.loaded {
+    transform: scale(1.05);
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    animation: none;
+  }
 }

@@ -4,7 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="./style.css" as="style">
+    <link rel="preload" href="./script.js" as="script">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Add cache control for static assets -->
+    <meta http-equiv="Cache-Control" content="max-age=86400">
+    
     <title>My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="mediaqueries.css" />
   </head>
@@ -48,7 +60,11 @@
             <!-- Project Card: ForgeKeepers -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/ForgeKeepersGif.gif" alt="ForgeKeepers project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/ForgeKeepers.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/ForgeKeepersGif.gif" alt="ForgeKeepers project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">ForgeKeepers</h3>
                   <p class="details-description">
@@ -64,7 +80,11 @@
             <!-- Project Card: Count Guys -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/CountGuysGif.gif" alt="Count Guys project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/CountGuys.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/CountGuysGif.gif" alt="Count Guys project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">Count Guys</h3>
                   <p class="details-description">
@@ -80,7 +100,11 @@
             <!-- Project Card: BozoBrawl -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/BozoBrawlGif.gif" alt="BozoBrawl project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/BozoBrawl.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/BozoBrawlGif.gif" alt="BozoBrawl project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">BozoBrawl</h3>
                   <p class="details-description">
@@ -96,7 +120,11 @@
             <!-- Project Card: HotHell -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/HotHellGif.gif" alt="HotHell project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/HotHell.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/HotHellGif.gif" alt="HotHell project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">HotHell</h3>
                   <p class="details-description">
@@ -112,7 +140,11 @@
             <!-- Project Card: P.O.T.A.T.O -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/PotatoGif.gif" alt="P.O.T.A.T.O project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/Potato.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/PotatoGif.gif" alt="P.O.T.A.T.O project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">P.O.T.A.T.O</h3>
                   <p class="details-description">
@@ -128,7 +160,11 @@
             <!-- Project Card: G.F.O.S 1992 -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/GfosGif.gif" alt="G.F.O.S 1992 project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/Gfos.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/GfosGif.gif" alt="G.F.O.S 1992 project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">G.F.O.S 1992</h3>
                   <p class="details-description">
@@ -144,7 +180,11 @@
             <!-- Project Card: Intern:All Conflict -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/InternALLGif.gif" alt="Intern:All Conflict project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/InternALL.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/InternALLGif.gif" alt="Intern:All Conflict project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">Intern:All Conflict</h3>
                   <p class="details-description">
@@ -160,7 +200,11 @@
             <!-- Project Card: Force Push Clone -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/PushForcegif.gif" alt="Force Push Clone project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/PushForce.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/PushForcegif.gif" alt="Force Push Clone project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">Force Push Clone</h3>
                   <p class="details-description">
@@ -176,7 +220,11 @@
             <!-- Project Card: Real Car Parking Clone -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/CarGameGif.gif" alt="Real Car Parking Clone project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/CarGame.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/CarGameGif.gif" alt="Real Car Parking Clone project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">Real Car Parking Clone</h3>
                   <p class="details-description">
@@ -192,7 +240,11 @@
             <!-- Project Card: Hole.io Clone -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/HoleIoGif.gif" alt="Hole.io Clone project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/HoleIo.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/HoleIoGif.gif" alt="Hole.io Clone project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">Hole.io Clone</h3>
                   <p class="details-description">
@@ -208,7 +260,11 @@
             <!-- Project Card: MegaMan Clone -->
             <div class="details-container">
               <div class="article-container gif-container">
-                <img src="./assets/MegaManClonegif.gif" alt="MegaMan Clone project GIF" class="project-img" loading="lazy" />
+                <video autoplay loop muted playsinline preload="metadata" class="project-img">
+                  <source src="./assets/MegaManClone.webm" type="video/webm">
+                  <!-- Fallback to GIF if video not supported -->
+                  <img src="./assets/MegaManClonegif.gif" alt="MegaMan Clone project GIF" class="project-img" loading="lazy" />
+                </video>
                 <div class="project-details">
                   <h3 class="details-header">MegaMan Clone</h3>
                   <p class="details-description">
@@ -260,8 +316,8 @@
     <!-- Particles Background -->
     <div id="particles-js"></div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
+    <!-- Scripts - Defer loading for better performance -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>

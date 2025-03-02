@@ -42,85 +42,160 @@ document.addEventListener('DOMContentLoaded', () => {
     cardObserver.observe(card);
   });
 
-  // GIF loading management - improved version
-  const gifImages = document.querySelectorAll('.gif-container img');
+  // Enhanced Media Loading - Handles both videos and GIF images
+  const gifContainers = document.querySelectorAll('.gif-container');
   
-  // Function to handle image loading completion
-  const handleImageLoaded = (img) => {
-    const container = img.closest('.gif-container');
+  // Function to handle media loading completion
+  const handleMediaLoaded = (media, container) => {
+    if (!container) container = media.closest('.gif-container');
     container.classList.add('loaded');
-    img.classList.add('loaded');
+    media.classList.add('loaded');
   };
   
-  // Function to handle image loading error
-  const handleImageError = (img) => {
-    const container = img.closest('.gif-container');
+  // Function to handle media loading error
+  const handleMediaError = (media, container) => {
+    if (!container) container = media.closest('.gif-container');
     container.classList.add('loaded'); // Still mark as loaded to remove loading text
-    img.classList.add('loaded');
-    console.warn('Image failed to load:', img.src);
+    media.classList.add('loaded');
+    console.warn('Media failed to load:', media.src || media.currentSrc);
+    
+    // If video fails, try showing the fallback image
+    if (media.tagName === 'VIDEO') {
+      const fallbackImg = media.querySelector('img');
+      if (fallbackImg) {
+        fallbackImg.style.display = 'block';
+        if (fallbackImg.complete) {
+          handleMediaLoaded(fallbackImg, container);
+        } else {
+          fallbackImg.onload = () => handleMediaLoaded(fallbackImg, container);
+          fallbackImg.onerror = () => console.warn('Both video and fallback image failed to load');
+        }
+      }
+    }
   };
 
-  // Create a new Intersection Observer for GIFs
-  const gifLoadOptions = {
-    rootMargin: "200px", // Start loading even earlier to ensure they're ready
-    threshold: 0.1
+  // Helper to check if element is in viewport
+  const isElementInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= -rect.height && 
+      rect.left >= -rect.width && 
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + rect.height && 
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth) + rect.width
+    );
+  };
+
+  // Create a new Intersection Observer for media elements
+  const mediaLoadOptions = {
+    rootMargin: "300px", // Load media well before it's visible
+    threshold: 0.01
   };
   
-  const gifObserver = new IntersectionObserver((entries, observer) => {
+  const mediaObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       
-      const img = entry.target;
+      const container = entry.target;
+      const media = container.querySelector('video') || container.querySelector('img');
       
-      // Check if image is already complete (might be cached)
-      if (img.complete) {
-        handleImageLoaded(img);
+      if (!media) return;
+      
+      if (media.tagName === 'VIDEO') {
+        // For videos
+        if (media.readyState >= 3) { // HAVE_FUTURE_DATA
+          handleMediaLoaded(media, container);
+        } else {
+          media.addEventListener('loadeddata', () => handleMediaLoaded(media, container), { once: true });
+          media.addEventListener('error', () => handleMediaError(media, container), { once: true });
+          
+          // Try to preload video metadata to speed up loading
+          media.preload = 'metadata';
+          media.load();
+        }
       } else {
-        // Set up the load and error events for images still loading
-        img.onload = () => handleImageLoaded(img);
-        img.onerror = () => handleImageError(img);
+        // For images
+        if (media.complete) {
+          handleMediaLoaded(media, container);
+        } else {
+          media.onload = () => handleMediaLoaded(media, container);
+          media.onerror = () => handleMediaError(media, container);
+        }
       }
       
-      // Unobserve after we start loading
-      observer.unobserve(img);
+      observer.unobserve(container);
     });
-  }, gifLoadOptions);
+  }, mediaLoadOptions);
   
-  // Handle all GIF images immediately
-  gifImages.forEach(img => {
-    // For all images, check if they're loaded and set up event handlers
-    if (img.complete) {
-      // Image is already loaded, mark it as complete now
-      handleImageLoaded(img);
+  // Handle all media containers
+  gifContainers.forEach(container => {
+    mediaObserver.observe(container);
+  });
+  
+  // Handle video playback based on visibility
+  const manageVideoPlayback = () => {
+    document.querySelectorAll('.gif-container video.loaded').forEach(video => {
+      if (isElementInViewport(video)) {
+        if (video.paused) video.play().catch(() => {});
+      } else {
+        if (!video.paused) video.pause();
+      }
+    });
+  };
+  
+  // Throttle function to limit scroll event frequency
+  const throttle = (callback, limit) => {
+    let waiting = false;
+    return function() {
+      if (!waiting) {
+        callback.apply(this, arguments);
+        waiting = true;
+        setTimeout(() => {
+          waiting = false;
+        }, limit);
+      }
+    };
+  };
+  
+  // Add throttled scroll listener for video management
+  window.addEventListener('scroll', throttle(manageVideoPlayback, 200));
+  
+  // Check video playback on resize too
+  window.addEventListener('resize', throttle(manageVideoPlayback, 200));
+  
+  // Manage videos when document becomes visible/invisible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // Pause all videos when tab is not visible
+      document.querySelectorAll('video').forEach(video => {
+        if (!video.paused) video.pause();
+      });
     } else {
-      // Add event handlers
-      img.onload = () => handleImageLoaded(img);
-      img.onerror = () => handleImageError(img);
-      
-      // Add to observer to start loading when near viewport
-      gifObserver.observe(img);
+      // Resume video playback when tab becomes visible again
+      manageVideoPlayback();
     }
   });
   
-  // Shorter fallback timer - if images aren't loaded after 3 seconds, force them to show
+  // Shorter fallback timer - if media aren't loaded after 3 seconds, force them to show
   setTimeout(() => {
     document.querySelectorAll('.gif-container:not(.loaded)').forEach(container => {
       container.classList.add('loaded');
-      const img = container.querySelector('img');
-      if (img) img.classList.add('loaded');
+      const media = container.querySelector('video, img');
+      if (media) media.classList.add('loaded');
       console.log('Fallback timer applied to:', container);
     });
   }, 3000);
 
   // Scroll-to-top button functionality
   const scrollToTopBtn = document.getElementById('scrollToTop');
-  window.addEventListener('scroll', () => {
+  
+  // Use throttled scroll handler for better performance
+  window.addEventListener('scroll', throttle(() => {
     if (window.pageYOffset > 300) {
       scrollToTopBtn.classList.add('show');
     } else {
       scrollToTopBtn.classList.remove('show');
     }
-  });
+  }, 150));
 
   scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({
@@ -129,15 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Initialize particles.js
+  // Optimized particles.js configuration
   if (typeof particlesJS !== 'undefined') {
     particlesJS('particles-js', {
       particles: {
         number: {
-          value: 80,
+          value: 40, // Reduced from 80
           density: {
             enable: true,
-            value_area: 800
+            value_area: 1000 // Increased to reduce particle density
           }
         },
         color: {
@@ -154,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
           value: 0.3,
           random: false,
           anim: {
-            enable: false,
+            enable: false, // Disabled animation for better performance
             speed: 1,
             opacity_min: 0.1,
             sync: false
@@ -164,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
           value: 3,
           random: true,
           anim: {
-            enable: false,
+            enable: false, // Disabled animation for better performance
             speed: 40,
             size_min: 0.1,
             sync: false
@@ -172,14 +247,14 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         line_linked: {
           enable: true,
-          distance: 150,
+          distance: 200, // Increased to reduce the number of connections
           color: "#bb86fc",
           opacity: 0.2,
           width: 1
         },
         move: {
           enable: true,
-          speed: 2,
+          speed: 1.5, // Reduced speed for better performance
           direction: "none",
           random: false,
           straight: false,
@@ -195,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mode: "grab"
           },
           onclick: {
-            enable: true,
+            enable: false, // Disabled for better performance
             mode: "push"
           },
           resize: true
@@ -206,13 +281,13 @@ document.addEventListener('DOMContentLoaded', () => {
             line_linked: {
               opacity: 0.6
             }
-          },
-          push: {
-            particles_nb: 4
           }
         }
       },
-      retina_detect: true
+      retina_detect: false // Disabled for better performance on high DPI displays
     });
   }
+  
+  // Initial call to manage video playback
+  setTimeout(manageVideoPlayback, 500);
 });
