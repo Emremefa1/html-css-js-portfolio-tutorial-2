@@ -1,4 +1,121 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Matrix Digital Rain Effect - Cyberpunk Variant
+  const canvas = document.getElementById('matrix-background');
+  const ctx = canvas.getContext('2d');
+
+  // Set canvas size
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Binary and hex characters for primary streams
+  const binaryChars = '10'.split('');
+  // Katakana and special characters for highlight streams
+  const katakanaChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン∆∇§¥₿¢€£♠♣♥♦★○●◆◇□■△▲▼▽'.split('');
+
+  // Stream types
+  const STREAM_TYPES = {
+    BINARY: 'binary',
+    HIGHLIGHT: 'highlight'
+  };
+
+  // Initialize streams
+  const streams = [];
+  const fontSize = 14;
+  const columns = Math.ceil(canvas.width / fontSize);
+
+  for (let i = 0; i < columns; i++) {
+    const streamType = Math.random() < 0.15 ? STREAM_TYPES.HIGHLIGHT : STREAM_TYPES.BINARY;
+    streams[i] = {
+      x: i * fontSize,
+      y: Math.random() * canvas.height,
+      speed: Math.random() * 2 + (streamType === STREAM_TYPES.HIGHLIGHT ? 2 : 1),
+      length: Math.floor(Math.random() * 15 + (streamType === STREAM_TYPES.HIGHLIGHT ? 10 : 5)),
+      type: streamType,
+      chars: [],
+      lastUpdate: 0,
+      updateInterval: streamType === STREAM_TYPES.HIGHLIGHT ? 50 : 100
+    };
+
+    // Initialize characters for each stream
+    for (let j = 0; j < streams[i].length; j++) {
+      streams[i].chars[j] = {
+        value: streamType === STREAM_TYPES.BINARY ? 
+          binaryChars[Math.floor(Math.random() * binaryChars.length)] :
+          katakanaChars[Math.floor(Math.random() * katakanaChars.length)],
+        alpha: 1 - (j / streams[i].length)
+      };
+    }
+  }
+
+  // Drawing function
+  function draw(timestamp) {
+    // Semi-transparent fade effect
+    ctx.fillStyle = 'rgba(10, 15, 13, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    streams.forEach((stream, i) => {
+      // Update characters periodically
+      if (timestamp - stream.lastUpdate > stream.updateInterval) {
+        stream.chars.forEach(char => {
+          if (Math.random() < 0.1) {
+            char.value = stream.type === STREAM_TYPES.BINARY ?
+              binaryChars[Math.floor(Math.random() * binaryChars.length)] :
+              katakanaChars[Math.floor(Math.random() * katakanaChars.length)];
+          }
+        });
+        stream.lastUpdate = timestamp;
+      }
+
+      // Draw each character in the stream
+      stream.chars.forEach((char, j) => {
+        const y = stream.y - (j * fontSize);
+        
+        if (y < canvas.height && y > -fontSize) {
+          // Set different styles based on stream type
+          if (stream.type === STREAM_TYPES.HIGHLIGHT) {
+            // Glowing effect for highlight streams
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#00FF9D';
+            ctx.fillStyle = `rgba(0, 255, 157, ${char.alpha * 0.9})`;
+            ctx.font = `bold ${fontSize}px monospace`;
+          } else {
+            // Subtle effect for binary streams
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = `rgba(0, 255, 157, ${char.alpha * 0.5})`;
+            ctx.font = `${fontSize}px monospace`;
+          }
+          
+          ctx.fillText(char.value, stream.x, y);
+        }
+      });
+
+      // Move stream
+      stream.y += stream.speed;
+
+      // Reset stream when it goes off screen
+      if (stream.y > canvas.height + stream.length * fontSize) {
+        stream.y = -stream.length * fontSize;
+        stream.speed = Math.random() * 2 + (stream.type === STREAM_TYPES.HIGHLIGHT ? 2 : 1);
+        stream.length = Math.floor(Math.random() * 15 + (stream.type === STREAM_TYPES.HIGHLIGHT ? 10 : 5));
+        
+        // Randomly change stream type when resetting
+        if (Math.random() < 0.1) {
+          stream.type = Math.random() < 0.15 ? STREAM_TYPES.HIGHLIGHT : STREAM_TYPES.BINARY;
+          stream.updateInterval = stream.type === STREAM_TYPES.HIGHLIGHT ? 50 : 100;
+        }
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  // Start the animation
+  draw(0);
+
   // Intersection Observer for fade-in animations
   const faders = document.querySelectorAll('.fade-in');
   const appearOptions = {
@@ -209,14 +326,14 @@ document.addEventListener('DOMContentLoaded', () => {
     particlesJS('particles-js', {
       particles: {
         number: {
-          value: 40, // Reduced from 80
+          value: 40,
           density: {
             enable: true,
-            value_area: 1000 // Increased to reduce particle density
+            value_area: 1000
           }
         },
         color: {
-          value: "#bb86fc"
+          value: "#00FF9D"  // Updated to match our cyber green
         },
         shape: {
           type: "circle",
@@ -226,10 +343,10 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         },
         opacity: {
-          value: 0.3,
-          random: false,
+          value: 0.2,
+          random: true,
           anim: {
-            enable: false, // Disabled animation for better performance
+            enable: false,
             speed: 1,
             opacity_min: 0.1,
             sync: false
@@ -239,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
           value: 3,
           random: true,
           anim: {
-            enable: false, // Disabled animation for better performance
+            enable: false,
             speed: 40,
             size_min: 0.1,
             sync: false
@@ -247,14 +364,14 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         line_linked: {
           enable: true,
-          distance: 200, // Increased to reduce the number of connections
-          color: "#bb86fc",
-          opacity: 0.2,
+          distance: 200,
+          color: "#00FF9D",  // Updated to match our cyber green
+          opacity: 0.15,
           width: 1
         },
         move: {
           enable: true,
-          speed: 1.5, // Reduced speed for better performance
+          speed: 1.5,
           direction: "none",
           random: false,
           straight: false,
@@ -270,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mode: "grab"
           },
           onclick: {
-            enable: false, // Disabled for better performance
+            enable: false,
             mode: "push"
           },
           resize: true
@@ -279,12 +396,12 @@ document.addEventListener('DOMContentLoaded', () => {
           grab: {
             distance: 140,
             line_linked: {
-              opacity: 0.6
+              opacity: 0.3
             }
           }
         }
       },
-      retina_detect: false // Disabled for better performance on high DPI displays
+      retina_detect: false
     });
   }
   
